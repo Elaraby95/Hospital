@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+
+        <template id="hms_patient_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <t t-foreach="docs" t-as="o">
+                            <span style="color: red;">
+                                <h3>Patient Status Report</h3>
+                            </span>
+                            <br/>
+                            <br/>
+                            <img t-att-src="image_data_uri(o.Image)" width="150"
+                                 style="position: absolute; right: 1000px; top: 80px;"/>
+                            <table border="0" width="1200px">
+                                <tr>
+                                    <td>
+                                        Name:
+                                        <span t-field="o.First_name"/>
+                                    </td>
+                                    <td>
+                                        Birth date:
+                                        <span t-field="o.Birth_date"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>Age:
+                                        <span t-field="o.Age"/>
+                                    </td>
+                                    <td>PCR:
+                                        <span t-field="o.PCR"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Department:
+                                        <span t-field="o.department_id"/>
+                                    </td>
+                                    <td>Blood Type:
+                                        <span t-field="o.Blood"/>
+                                    </td>
+                                </tr>
+                                <td>Doctors:
+                                    <span t-field="o.doctor_id"/>
+                                </td>
+                                <td>Email:
+                                    <span t-field="o.email"/>
+                                </td>
+
+                            </table>
+                            <div style="color: red;" align="center">Log History</div>
+
+                            <table class="table table-bordered">
+                                <thead style="background-color: #118DFF">
+                                    <th>User</th>
+                                    <th>Date</th>
+                                    <th>Info</th>
+                                </thead>
+                                <tbody style="background-color: silver">
+                                    <tr>
+                                        <td><span t-field="o.create_uid"/></td>
+                                        <td><span t-field="o.create_date"/></td>
+                                        <td><span t-esc="o.description_ids"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

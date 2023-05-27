@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+
+        <report id="hms_patient_report"
+                name="hms.hms_patient_template"
+                string="Hms Report"
+                model="hms.patient"
+                report_type="qweb-html"/>
+
+    </data>
+</odoo>
+

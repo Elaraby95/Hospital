@@ -1,0 +1,128 @@
+<odoo>
+    <data>
+
+        <record id="patient_view_kanban" model="ir.ui.view">
+            <field name="name">hms.patient.kanban</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <ul>
+                                        <li>
+                                            <field name="Image" widget="image"/>
+                                        </li>
+                                        <li>
+                                            <h3>Name:
+                                                <field name="First_name"/>
+                                            </h3>
+                                        </li>
+                                        <li>
+                                            <h3>Email:
+                                                <field name="email"/>
+                                            </h3>
+                                        </li>
+                                        <li>
+                                            <h3>Address:
+                                                <field name="Address"/>
+                                            </h3>
+                                        </li>
+                                        <li>
+                                            <h3>state:
+                                                <field name="state"/>
+                                            </h3>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record id="patients_form_view" model="ir.ui.view">
+            <field name="name">Patients Form View</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Undetermined" type="object" name="undetermined"/>
+                        <button string="Good" type="object" name="good"/>
+                        <button string="Fair" type="object" name="fair"/>
+                        <button string="Serious" type="object" name="serious"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Info Data">
+                                <field name="First_name"/>
+                                <field name="Last_name"/>
+                                <field name="email"/>
+                                <field name="Age"/>
+                                <field name="Birth_date"/>
+                                <field name="PCR"/>
+                                <field name="CR_Ratio"
+                                       attrs="{'invisible':[('PCR','!=',True)]}"/>
+                                <field name="department_id"/>
+                                <field name="department_capacity"/>
+                                <field name="doctor_id" widget="many2many_tags"
+                                       attrs="{'readonly':[('department_id','=',False)]}"/>
+                                <field name="state"/>
+                                <field name="Blood"/>
+                            </group>
+                            <group string="Info">
+                                <field name="Image" widget="image"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Address">
+                                <field name="Address"/>
+                            </page>
+                            <page string="History"
+                                  attrs="{'invisible':[('Age','&lt;',50)]}">
+                                <field name="History"/>
+                            </page>
+                            <page string="Log Histroy">
+                                <field name="description_ids">
+                                    <tree>
+                                        <field name="create_uid"/>
+                                        <field name="create_date"/>
+                                        <field name="dsc"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="patients_tree_view" model="ir.ui.view">
+            <field name="name">Patients Tree View</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="First_name"/>
+                    <field name="Address"/>
+                    <field name="Age"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_bar" model="ir.actions.act_window">
+            <field name="name">Patients Actions</field>
+            <field name="res_model">hms.patient</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+
+        <menuitem id="hms_root" name="HMS"/>
+        <menuitem id="hms_menu" name="Our Patient"
+                  parent="hms_root" action="action_bar"/>
+
+    </data>
+</odoo>
